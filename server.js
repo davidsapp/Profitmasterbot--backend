@@ -1,5 +1,5 @@
 // ============================================================
-// PROFITMASTERBOT v6.2.0 — COMPLETE BACKEND SERVER
+// PROFITMASTERBOT v6.2.0 — COMPLETE BACKEND  SERVER
 // Powered by David Maina · SmartLogic Technologies
 // ============================================================
 
