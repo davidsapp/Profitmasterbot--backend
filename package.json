@@ -1,0 +1,18 @@
+{
+  "name": "profitmasterbot-backend",
+  "version": "6.2.0",
+  "description": "ProfitMasterBot Backend v6.2.0 - Powered by David Maina",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "axios": "^1.6.0"
+  }
+}
