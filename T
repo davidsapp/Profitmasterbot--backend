@@ -1,0 +1,28 @@
+process.env.PORTvar tradingLoop = null;
+function startLoop() {
+  if(tradingLoop) clearInterval(tradingLoop);
+  tradingLoop = setInterval(function(){
+    if(!bot.running){ clearInterval(tradingLoop); return; }
+    var pair = bot.pairs[Math.floor(Math.random()*bot.pairs.length)];
+    var sig  = getSignal(pair);
+    if(sig.confidence >= 60) executeTrade(pair);
+  }, 30000);
+}
+
+// ── COMMISSION ────────────────────────────────────────────────
+var comm = { rate:5, total:0, pending:0, withdrawn:0, history:[] };
+function addComm(amount, userId) {
+  var cut = amount * (comm.rate/100);
+  comm.total+=cut; comm.pending+=cut;
+  comm.history.unshift({ amount:cut.toFixed(2), from:userId, time:new Date().toISOString() });
+}
+
+// ── MPESA ─────────────────────────────────────────────────────
+var mpesaToken  = null;
+var tokenExpiry = 0;
+var wallet      = { balance:0, transactions:[] };
+
+function getMpesaToken() {
+  if(mpesaToken && Date.now() < tokenExpiry) return Promise.resolve(mpesaToken);
+  var creds = Buffer.from(MPESA_KEY+":"+MPESA_SECRET).toStringf"base64");
+  return axios.get("https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
